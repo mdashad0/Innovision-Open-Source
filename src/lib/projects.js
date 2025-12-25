@@ -73,29 +73,37 @@ export const projectTemplates = [
 /**
  * Create a new project
  */
-export async function createProject(userId, projectData) {
-  const projectRef = doc(collection(db, "projects"));
-  const project = {
-    ...projectData,
-    userId,
-    status: "planning",
-    createdAt: Date.now(),
-    updatedAt: Date.now(),
-    currentMilestone: 0,
-    progress: 0
-  };
-  
-  await setDoc(projectRef, project);
-  return { id: projectRef.id, ...project };
+export async function createProject(userEmail, projectData) {
+  try {
+    const projectRef = doc(collection(db, "projects"));
+    const project = {
+      ...projectData,
+      userId: userEmail,
+      status: "planning",
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      currentMilestone: 0,
+      progress: 0
+    };
+    
+    await setDoc(projectRef, project);
+    return { id: projectRef.id, ...project };
+  } catch (error) {
+    throw new Error(`Failed to create project: ${error.message}`);
+  }
 }
 
 /**
  * Get user's projects
  */
-export async function getUserProjects(userId) {
-  const q = query(collection(db, "projects"), where("userId", "==", userId));
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+export async function getUserProjects(userEmail) {
+  try {
+    const q = query(collection(db, "projects"), where("userId", "==", userEmail));
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    return [];
+  }
 }
 
 /**

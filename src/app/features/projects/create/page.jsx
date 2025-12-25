@@ -6,25 +6,26 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { Label } from "@/components/ui/label";
+import { ArrowLeft, Plus, X } from "lucide-react";
 import Link from "next/link";
 import { projectTemplates, createProject } from "@/lib/projects";
-import { toast } from "sonner";
 
 export default function CreateProjectPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
   const templateId = searchParams.get("template");
-  
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    templateId: templateId || "",
     skills: [],
+    difficulty: "beginner",
     duration: "",
     milestones: []
   });
+  const [skillInput, setSkillInput] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -40,10 +41,10 @@ export default function CreateProjectPage() {
         setFormData({
           title: template.title,
           description: template.description,
-          templateId: template.id,
-          skills: template.skills,
+          skills: template.skills || [],
+          difficulty: template.difficulty,
           duration: template.duration,
-          milestones: template.milestones
+          milestones: template.milestones || []
         });
       }
     }
@@ -51,18 +52,40 @@ export default function CreateProjectPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    if (!session?.user?.email) {
+      alert("Please log in to create a project");
+      return;
+    }
 
+    setLoading(true);
     try {
-      await createProject(session.user.email, formData);
-      toast.success("Project created successfully!");
-      router.push("/features/projects");
+      const project = await createProject(session.user.email, formData);
+      if (project && project.id) {
+        router.push(`/features/projects/${project.id}`);
+      } else {
+        throw new Error("Project creation failed - no ID returned");
+      }
     } catch (error) {
-      console.error("Failed to create project:", error);
-      toast.error("Failed to create project");
-    } finally {
+      alert(`Failed to create project: ${error.message}`);
       setLoading(false);
     }
+  };
+
+  const addSkill = () => {
+    if (skillInput.trim() && !formData.skills.includes(skillInput.trim())) {
+      setFormData({
+        ...formData,
+        skills: [...formData.skills, skillInput.trim()]
+      });
+      setSkillInput("");
+    }
+  };
+
+  const removeSkill = (skill) => {
+    setFormData({
+      ...formData,
+      skills: formData.skills.filter(s => s !== skill)
+    });
   };
 
   if (status === "loading") {
@@ -81,23 +104,19 @@ export default function CreateProjectPage() {
           </Link>
         </div>
 
-        <div className="text-center space-y-2">
-          <h1 className="text-4xl font-bold">Create New Project</h1>
-          <p className="text-muted-foreground">
-            Start your capstone project journey
-          </p>
-        </div>
-
         <Card>
           <CardHeader>
-            <CardTitle>Project Details</CardTitle>
-            <CardDescription>Fill in the information about your project</CardDescription>
+            <CardTitle>Create New Project</CardTitle>
+            <CardDescription>
+              Start a new project to build your portfolio and gain practical experience
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block mb-2 text-sm font-medium">Project Title</label>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="title">Project Title</Label>
                 <Input
+                  id="title"
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   placeholder="Enter project title"
@@ -105,9 +124,10 @@ export default function CreateProjectPage() {
                 />
               </div>
 
-              <div>
-                <label className="block mb-2 text-sm font-medium">Description</label>
+              <div className="space-y-2">
+                <Label htmlFor="description">Description</Label>
                 <Textarea
+                  id="description"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="Describe your project goals and objectives"
@@ -116,50 +136,73 @@ export default function CreateProjectPage() {
                 />
               </div>
 
-              <div>
-                <label className="block mb-2 text-sm font-medium">Skills Required</label>
-                <Input
-                  value={formData.skills.join(", ")}
-                  onChange={(e) => setFormData({ ...formData, skills: e.target.value.split(",").map(s => s.trim()) })}
-                  placeholder="React, Node.js, MongoDB (comma separated)"
-                />
+              <div className="space-y-2">
+                <Label htmlFor="difficulty">Difficulty Level</Label>
+                <select
+                  id="difficulty"
+                  value={formData.difficulty}
+                  onChange={(e) => setFormData({ ...formData, difficulty: e.target.value })}
+                  className="w-full p-2 border rounded-md bg-background"
+                >
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </select>
               </div>
 
-              <div>
-                <label className="block mb-2 text-sm font-medium">Expected Duration</label>
+              <div className="space-y-2">
+                <Label htmlFor="duration">Expected Duration</Label>
                 <Input
+                  id="duration"
                   value={formData.duration}
                   onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                  placeholder="e.g., 8-12 weeks"
+                  placeholder="e.g., 8-10 weeks"
                 />
               </div>
 
-              {formData.milestones.length > 0 && (
-                <div>
-                  <label className="block mb-2 text-sm font-medium">Milestones</label>
-                  <div className="space-y-2">
-                    {formData.milestones.map((milestone, index) => (
-                      <div key={index} className="p-3 border rounded-lg">
-                        <div className="flex justify-between">
-                          <span className="font-medium">{milestone.title}</span>
-                          <span className="text-sm text-muted-foreground">{milestone.duration}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+              <div className="space-y-2">
+                <Label htmlFor="skills">Skills & Technologies</Label>
+                <div className="flex gap-2">
+                  <Input
+                    id="skills"
+                    value={skillInput}
+                    onChange={(e) => setSkillInput(e.target.value)}
+                    onKeyPress={(e) => e.key === "Enter" && (e.preventDefault(), addSkill())}
+                    placeholder="Add a skill"
+                  />
+                  <Button type="button" onClick={addSkill} variant="outline">
+                    <Plus className="w-4 h-4" />
+                  </Button>
                 </div>
-              )}
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {formData.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-3 py-1 bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 rounded-full text-sm flex items-center gap-2"
+                    >
+                      {skill}
+                      <button
+                        type="button"
+                        onClick={() => removeSkill(skill)}
+                        className="hover:text-blue-900 dark:hover:text-blue-100"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              </div>
 
-              <Button type="submit" disabled={loading} className="w-full">
-                {loading ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Creating Project...
-                  </>
-                ) : (
-                  "Create Project"
-                )}
-              </Button>
+              <div className="flex gap-3 pt-4">
+                <Button type="submit" disabled={loading} className="flex-1">
+                  {loading ? "Creating..." : "Create Project"}
+                </Button>
+                <Link href="/features/projects">
+                  <Button type="button" variant="outline">
+                    Cancel
+                  </Button>
+                </Link>
+              </div>
             </form>
           </CardContent>
         </Card>
