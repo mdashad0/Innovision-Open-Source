@@ -2,7 +2,7 @@
   <img src="./public/InnoVision_LOGO-removebg-preview.png" alt="InnoVision Logo" width="200"/>
 </p>
 
-<h1 align="center">InnoVision - AI-Powered Adaptive Learning Platform</h1>
+<h1 align="center">InnoVision - AI-Powered Adaptive Learning Platform 🚀</h1>
 
 <p align="center">
   <strong>Revolutionizing Education Through Intelligent & Personalized Learning</strong>
