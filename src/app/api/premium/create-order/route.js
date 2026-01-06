@@ -4,6 +4,11 @@ import Razorpay from "razorpay";
 
 // Secret coupons - don't expose these publicly
 const COUPONS = {
+  VICKY: { discount: 100, type: "percent" }, // 100% off = FREE
+  SANJANA: { discount: 100, type: "percent" }, // FREE
+  VILAS: { discount: 100, type: "percent" }, // FREE
+  BHUMI: { discount: 100, type: "percent" }, // FREE
+  SNEHA: { discount: 100, type: "percent" }, // FREE
   VICKY15: { discount: 15, type: "percent" },
   VICKY20: { discount: 20, type: "percent" },
   VICKY50: { discount: 50, type: "percent" },
