@@ -4,6 +4,7 @@ import { useAuth } from "@/contexts/auth";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   Check,
   Crown,
@@ -24,6 +25,7 @@ import {
   Trophy,
   Calendar,
   Download,
+  Tag,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -34,6 +36,8 @@ export default function PremiumPage() {
   const [selectedPlan, setSelectedPlan] = useState("premium");
   const [premiumStatus, setPremiumStatus] = useState(null);
   const [loadingStatus, setLoadingStatus] = useState(true);
+  const [couponCode, setCouponCode] = useState("");
+  const [couponApplied, setCouponApplied] = useState(null);
 
   useEffect(() => {
     if (!user) {
@@ -70,7 +74,7 @@ export default function PremiumPage() {
       const orderRes = await fetch("/api/premium/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ planType }),
+        body: JSON.stringify({ planType, couponCode: couponCode.trim() }),
       });
 
       if (!orderRes.ok) {
@@ -80,6 +84,17 @@ export default function PremiumPage() {
       }
 
       const orderData = await orderRes.json();
+
+      // Show coupon result
+      if (couponCode && orderData.couponValid) {
+        setCouponApplied({
+          discount: orderData.discountApplied / 100,
+          finalAmount: orderData.amount / 100,
+        });
+        toast.success(`Coupon applied! You save ₹${orderData.discountApplied / 100}`);
+      } else if (couponCode && !orderData.couponValid) {
+        toast.error("Invalid coupon code");
+      }
 
       const script = document.createElement("script");
       script.src = "https://checkout.razorpay.com/v1/checkout.js";
@@ -348,6 +363,26 @@ export default function PremiumPage() {
                 </>
               )}
             </Button>
+            
+            {/* Coupon Input */}
+            <div className="mt-4 pt-4 border-t">
+              <div className="flex gap-2">
+                <div className="relative flex-1">
+                  <Tag className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Have a coupon?"
+                    value={couponCode}
+                    onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                    className="pl-9 text-sm"
+                  />
+                </div>
+              </div>
+              {couponApplied && (
+                <p className="text-xs text-green-600 mt-2">
+                  ✓ Coupon applied! You save ₹{couponApplied.discount}
+                </p>
+              )}
+            </div>
           </Card>
 
           {/* Education Plan */}
