@@ -2,7 +2,7 @@
   <img src="./public/InnoVision_LOGO-removebg-preview.png" alt="InnoVision Logo" width="200"/>
 </p>
 
-<h1 align="center">InnoVision - AI-Powered Adaptive Learning Platform 🚀</h1>
+<h1 align="center">InnoVision - AI-Powered Adaptive Learning Platform</h1>
 
 <p align="center">
   <strong>Revolutionizing Education Through Intelligent & Personalized Learning</strong>
@@ -27,7 +27,7 @@
 
 ---
 
-## 📚 About InnoVision
+## About InnoVision
 
 InnoVision is a cutting-edge AI-powered learning platform that dynamically generates structured, engaging courses from any topic. Our platform breaks the limitations of traditional courses by leveraging AI and machine learning to create a flexible and adaptive learning environment tailored to individual needs.
 
@@ -39,7 +39,7 @@ InnoVision is a cutting-edge AI-powered learning platform that dynamically gener
 
 ---
 
-## 🎨 Modern UI/UX
+## Modern UI/UX
 
 ### Icon-Based Navigation
 - Clean, centered icon navigation bar with tooltips on hover
@@ -50,23 +50,23 @@ InnoVision is a cutting-edge AI-powered learning platform that dynamically gener
 ### Navigation Icons
 | Icon | Feature | Description |
 |------|---------|-------------|
-| ✨ Sparkles | AI Course Generator | Generate courses with AI |
-| 🎨 Palette | Course Studio | Design custom courses |
-| 📤 Upload | Content Ingestion | Import existing content |
-| ▶️ YouTube | YouTube Course | Learn from YouTube videos |
-| 🏠 Home | My Courses | Your learning dashboard |
-| 📚 BookOpen | Browse Courses | Explore all courses |
-| 💻 Code | Code Editor | Practice coding |
-| 🏆 Trophy | Features | Platform features |
-| ⚡ Zap | Achievements | Badges & rewards |
-| 📊 BarChart | Demo | See how it works |
-| 💬 Message | Contact | Get in touch |
+| Sparkles | AI Course Generator | Generate courses with AI |
+| Palette | Course Studio | Design custom courses |
+| Upload | Content Ingestion | Import existing content |
+| YouTube | YouTube Course | Learn from YouTube videos |
+| Home | My Courses | Your learning dashboard |
+| BookOpen | Browse Courses | Explore all courses |
+| Code | Code Editor | Practice coding |
+| Trophy | Features | Platform features |
+| Zap | Achievements | Badges & rewards |
+| BarChart | Demo | See how it works |
+| Message | Contact | Get in touch |
 
 ---
 
-## ✨ Features
+## Features
 
-### 🎯 AI-Powered Course Generation
+### AI-Powered Course Generation
 | Feature | Description |
 |---------|-------------|
 | **Custom Course Generation** | Generate structured courses on ANY topic using Google Gemini AI |
@@ -76,7 +76,7 @@ InnoVision is a cutting-edge AI-powered learning platform that dynamically gener
 | **Curriculum Browser** | Pre-built curriculum from LKG to Class 12 (CBSE & State Boards) |
 | **Engineering Courses** | Specialized courses for all engineering branches and semesters |
 
-### 📖 Enhanced Learning Experience
+### Enhanced Learning Experience
 | Feature | Description |
 |---------|-------------|
 | **Interactive Tasks** | Quiz (MCQ), Fill-in-the-blanks, Match the Following for each chapter |
@@ -88,7 +88,7 @@ InnoVision is a cutting-edge AI-powered learning platform that dynamically gener
 | **Offline Learning** | Download courses for offline access using IndexedDB |
 | **Multi-language Translation** | Learn in 100+ languages with real-time translation |
 
-### 🎮 Advanced Gamification System
+### Advanced Gamification System
 | Feature | Description |
 |---------|-------------|
 | **XP Points System** | Earn XP for completing lessons, quizzes, courses, and more |
@@ -101,7 +101,7 @@ InnoVision is a cutting-edge AI-powered learning platform that dynamically gener
 | **Achievement Toasts** | Real-time notifications for unlocked achievements |
 | **Badge Gallery** | View all earned and locked badges with progress |
 
-### 🚀 Premium Features
+### Premium Features
 | Feature | Description |
 |---------|-------------|
 | **Analytics Dashboard** | Track performance metrics, XP graphs, learning insights |
@@ -116,7 +116,7 @@ InnoVision is a cutting-edge AI-powered learning platform that dynamically gener
 | **Research Platform** | Export anonymized datasets for research |
 | **7-Day Free Trial** | Full access to premium features for 7 days |
 
-### 🌙 User Experience
+### User Experience
 | Feature | Description |
 |---------|-------------|
 | **Dark/Light Mode** | Theme switching for comfortable viewing |
@@ -128,7 +128,7 @@ InnoVision is a cutting-edge AI-powered learning platform that dynamically gener
 | **PWA Support** | Install as a Progressive Web App |
 | **Icon Navigation** | Clean icon-based navbar with hover tooltips |
 
-### 🔐 Platform Features
+### Platform Features
 | Feature | Description |
 |---------|-------------|
 | **Google Authentication** | Secure login with Google OAuth 2.0 |
@@ -141,7 +141,7 @@ InnoVision is a cutting-edge AI-powered learning platform that dynamically gener
 
 ---
 
-## 🎮 XP Rewards System
+## XP Rewards System
 
 | Action | XP Earned |
 |--------|-----------|
@@ -156,7 +156,7 @@ InnoVision is a cutting-edge AI-powered learning platform that dynamically gener
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 | Technology | Version | Purpose |
@@ -191,7 +191,7 @@ InnoVision is a cutting-edge AI-powered learning platform that dynamically gener
 
 ---
 
-## 💰 Pricing Plans
+## Pricing Plans
 
 ### Free Plan - ₹0/forever
 - 3 custom courses
@@ -230,7 +230,7 @@ InnoVision is a cutting-edge AI-powered learning platform that dynamically gener
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### Prerequisites
 - Node.js 18+
@@ -299,7 +299,7 @@ NEXTAUTH_URL=http://localhost:3000
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 InnoVision/
@@ -363,7 +363,7 @@ InnoVision/
 
 ---
 
-## 🔌 API Routes
+## API Routes
 
 ### Course Management
 | Endpoint | Method | Description |
@@ -398,7 +398,7 @@ InnoVision/
 
 ---
 
-## 🎯 UN Sustainable Development Goals
+## UN Sustainable Development Goals
 
 InnoVision contributes to the following UN SDGs:
 
@@ -412,7 +412,7 @@ InnoVision contributes to the following UN SDGs:
 
 ---
 
-## 📊 Comparative Study
+## Comparative Study
 
 | Feature | InnoVision | Coursera | Udemy | Khan Academy |
 |---------|------------|----------|-------|--------------|
@@ -431,7 +431,7 @@ InnoVision contributes to the following UN SDGs:
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create feature branch (`git checkout -b feature/amazing-feature`)
@@ -441,7 +441,7 @@ InnoVision contributes to the following UN SDGs:
 
 ---
 
-## 📞 Support
+## Support
 
 - **Website:** [https://innovision7.live](https://innovision7.live)
 - **Email:** vikas.ambalazari@gmail.com
@@ -449,7 +449,7 @@ InnoVision contributes to the following UN SDGs:
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the ISC License.
 
