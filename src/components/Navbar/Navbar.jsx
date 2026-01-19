@@ -157,18 +157,18 @@ const Navbar = () => {
 
   return (
     <header className="h-16 w-full border-b fixed top-0 left-0 bg-background/80 backdrop-blur-xl z-50 border-border/50">
-      <div className="h-full w-full px-4 flex items-center">
+      <div className="h-full max-w-7xl mx-auto px-3 sm:px-4 flex items-center justify-between">
         {/* Logo - Left */}
         <Link
           href={user ? `/roadmap` : "/"}
-          className="flex items-center gap-2 hover:opacity-80 transition-opacity flex-shrink-0"
+          className="flex items-center gap-1.5 sm:gap-2 hover:opacity-80 transition-opacity flex-shrink-0 min-w-0"
         >
-          <Image src="/InnoVision_LOGO-removebg-preview.png" alt="logo" width={40} height={40} />
-          <span className="text-xl font-bold hidden sm:block">InnoVision</span>
+          <Image src="/InnoVision_LOGO-removebg-preview.png" alt="logo" width={32} height={32} className="sm:w-10 sm:h-10" />
+          <span className="text-base sm:text-xl font-bold hidden xs:block truncate">InnoVision</span>
         </Link>
 
         {/* Desktop Navigation - Centered */}
-        <nav className="hidden md:flex items-center gap-1 flex-1 justify-center">
+        <nav className="hidden md:flex items-center gap-0.5 lg:gap-1 absolute left-1/2 -translate-x-1/2">
           {user ? (
             <>
               {/* All nav items as icons with tooltips */}
@@ -181,7 +181,7 @@ const Navbar = () => {
                         size="icon"
                         className={`h-9 w-9 ${isActiveLink(item.href) ? 'bg-muted' : ''}`}
                       >
-                        <item.icon className="h-5 w-5" />
+                        <item.icon className="h-4 w-4 lg:h-5 lg:w-5" />
                       </Button>
                     </Link>
                   </TooltipTrigger>
@@ -199,12 +199,14 @@ const Navbar = () => {
                 <Button
                   key={item.id || item.href}
                   variant="ghost"
+                  size="sm"
                   asChild={!!item.href}
                   onClick={() => {
                     if (item.id) {
                       document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
                     }
                   }}
+                  className="text-sm"
                 >
                   {item.href ? (
                     <Link href={item.href}>{item.label}</Link>
@@ -218,15 +220,15 @@ const Navbar = () => {
         </nav>
 
         {/* Right Section */}
-        <div className="flex items-center gap-2 flex-shrink-0">
+        <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
           {user && (
             <>
               {/* Premium Badge */}
               {isPremium && (
-                <Link href="/premium" className="hidden sm:flex">
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 hover:border-yellow-500/50 transition-colors">
-                    <Crown className="h-4 w-4 text-yellow-600" />
-                    <span className="text-sm font-semibold text-yellow-700 dark:text-yellow-400">PRO</span>
+                <Link href="/premium" className="hidden lg:flex">
+                  <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 hover:border-yellow-500/50 transition-colors">
+                    <Crown className="h-3.5 w-3.5 text-yellow-600" />
+                    <span className="text-xs font-semibold text-yellow-700 dark:text-yellow-400">PRO</span>
                   </div>
                 </Link>
               )}
@@ -234,9 +236,9 @@ const Navbar = () => {
               {/* XP */}
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/30 cursor-help relative">
-                    <Sparkles className="h-4 w-4 text-green-500" />
-                    <span className="text-sm font-semibold text-green-700 dark:text-green-400">{xp}</span>
+                  <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/10 border border-green-500/30 cursor-help relative">
+                    <Sparkles className="h-3.5 w-3.5 text-green-500" />
+                    <span className="text-xs font-semibold text-green-700 dark:text-green-400">{xp}</span>
                     {show && (
                       <motion.span
                         initial={{ opacity: 0, y: 5 }}
@@ -258,9 +260,9 @@ const Navbar = () => {
               {/* Streak */}
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/30 cursor-help">
-                    <Flame className={`h-4 w-4 ${streak >= 7 ? 'text-red-500' : 'text-orange-500'}`} />
-                    <span className={`text-sm font-semibold ${streak >= 7 ? 'text-red-600 dark:text-red-400' : 'text-orange-700 dark:text-orange-400'}`}>
+                  <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-500/10 border border-orange-500/30 cursor-help">
+                    <Flame className={`h-3.5 w-3.5 ${streak >= 7 ? 'text-red-500' : 'text-orange-500'}`} />
+                    <span className={`text-xs font-semibold ${streak >= 7 ? 'text-red-600 dark:text-red-400' : 'text-orange-700 dark:text-orange-400'}`}>
                       {streak}
                     </span>
                   </div>
@@ -273,43 +275,42 @@ const Navbar = () => {
             </>
           )}
 
-          {/* Theme & Night Mode */}
-          <div className="hidden sm:flex items-center">
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={toggleNightMode}
-                  className={nightMode ? 'text-amber-500' : ''}
-                >
-                  <MoonStar className={`h-5 w-5 ${nightMode ? 'fill-amber-500' : ''}`} />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>Night Mode</TooltipContent>
-            </Tooltip>
+          {/* Theme Toggle - Always visible */}
+          <Button variant="ghost" size="icon" onClick={toggleTheme} className="h-8 w-8 sm:h-9 sm:w-9">
+            {theme === "light" ? <Moon className="h-4 w-4 sm:h-5 sm:w-5" /> : <Sun className="h-4 w-4 sm:h-5 sm:w-5" />}
+          </Button>
 
-            <Button variant="ghost" size="icon" onClick={toggleTheme}>
-              {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
-            </Button>
-          </div>
+          {/* Night Mode - Always visible */}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleNightMode}
+                className={`h-8 w-8 sm:h-9 sm:w-9 ${nightMode ? 'text-amber-500' : ''}`}
+              >
+                <MoonStar className={`h-4 w-4 sm:h-5 sm:w-5 ${nightMode ? 'fill-amber-500' : ''}`} />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Night Mode (Blue Light Filter)</TooltipContent>
+          </Tooltip>
 
           {/* User Menu or Login */}
           {user ? (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 sm:gap-2">
               {/* Profile Avatar - Direct Link */}
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link href="/profile" className="relative">
-                    <Avatar className="h-9 w-9 ring-2 ring-transparent hover:ring-blue-500/50 transition-all cursor-pointer">
+                  <Link href="/profile" className="relative hidden sm:block">
+                    <Avatar className="h-8 w-8 sm:h-9 sm:w-9 ring-2 ring-transparent hover:ring-blue-500/50 transition-all cursor-pointer">
                       <AvatarImage src={user?.image} alt={user?.name} />
-                      <AvatarFallback className="bg-gradient-to-br from-blue-500 to-cyan-500 text-white">
+                      <AvatarFallback className="bg-gradient-to-br from-blue-500 to-cyan-500 text-white text-sm">
                         {user?.name?.[0]?.toUpperCase() || "U"}
                       </AvatarFallback>
                     </Avatar>
                     {isPremium && (
-                      <span className="absolute -bottom-0.5 -right-0.5 h-4 w-4 rounded-full bg-yellow-500 flex items-center justify-center">
-                        <Crown className="h-2.5 w-2.5 text-black" />
+                      <span className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full bg-yellow-500 flex items-center justify-center">
+                        <Crown className="h-2 w-2 text-black" />
                       </span>
                     )}
                   </Link>
@@ -320,8 +321,8 @@ const Navbar = () => {
               {/* Settings Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="h-9 w-9">
-                    <Settings className="h-5 w-5" />
+                  <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-9 sm:w-9">
+                    <Settings className="h-4 w-4 sm:h-5 sm:w-5" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
@@ -426,10 +427,10 @@ const Navbar = () => {
             </DropdownMenu>
             </div>
           ) : (
-            <Link href="/login">
-              <Button size="sm" className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700">
-                <LogIn className="h-4 w-4 mr-2" />
-                Login
+            <Link href="/login" className="flex-shrink-0">
+              <Button size="sm" className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 h-8 px-3 text-xs sm:text-sm sm:h-9 sm:px-4">
+                <LogIn className="h-3 w-3 sm:h-4 sm:w-4 sm:mr-2" />
+                <span className="hidden sm:inline">Login</span>
               </Button>
             </Link>
           )}
@@ -438,7 +439,7 @@ const Navbar = () => {
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden"
+            className="md:hidden h-8 w-8 sm:h-9 sm:w-9"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
